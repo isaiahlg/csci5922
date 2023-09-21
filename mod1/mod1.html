@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Isaiah LG - DL/Mod1</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/f4ea09cda5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <button class="back-button" onclick="window.location.href='/csci5622/home.html';"><i class="fa-solid fa-arrow-left"></i></button>
+    <div class="content">
+        <div class="textbox">
+            <h1>Module 1: Logistic Regression by Hand</h1>
+
+            <h2>Overview</h2>
+            Association Rule Mining (ARM) is a technique in machine learning that identifies relationships between items in large datasets. It involves finding patterns, or associations, between items that occur together frequently, and "mining" out rules that describe the data. ARM is perfect for transaction data where each transaction is unlabeled, just like a grocery store basket.
+            <figure>
+                <img class="figure" src="/csci5622/figures/arm/basket.png">
+                <figcaption>Rules are mined from transactional data to find items that appear frequently together.</figcaption>
+            </figure>
+            A rule represents an if-then relationship between two sets of items with an antecedent on the left-hand side (the "if"), and the consequent on the right-hand side (the "then"). Each rule is characterized by a variety of metrics, the most common of which are support, confidence, and lift. These metrics are used to evaluate the strength and significance of the discovered  association rules. Support measures how often the sets of items appears in the dataset, while confidence measures the proportion of times that the consequent appears given the antecedent. The support will always be lower than the frequency of each item individually, and the confidence of a rule will always be greater than or equal to the rule. Lift measures the degree of correlation between the antecedent and consequent, accounting for the base frequency of both.
+
+            The Apriori algorithm is a popular algorithm used in association rule mining. It works by generating a set of candidate itemsets and pruning them based on their support values. The algorithm starts with single items and incrementally builds larger itemsets  until no more frequent itemsets can be found. It prunes supersets by checking whether all subsets of a candidate itemset meet  the minimum support threshold. This reduces the search space and improves efficiency.
+            <figure>
+                <img class="figure" src="/csci5622/figures/arm/apriori.png">
+                <figcaption>The Apriori Algorithm makes rule mining much more effient as supersets of infrequent rules are pruned.</figcaption>
+            </figure>
+            For this dataset, ARM is used to find associations between the various assets included in the DHS surveys, such as cell phones, bicycles, mosquito nets, and refridgerators.
+
+           
+        </div>
+    </div>
+
+</body>
+
+</html>
