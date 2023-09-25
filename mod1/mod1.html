@@ -36,7 +36,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
-.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14482,6 +14481,10 @@ a.anchor-link {
   display: none;
 }
 
+.highlight  {
+  margin: 0.4em;
+}
+
 /* Input area styling */
 .jp-InputArea {
   overflow: hidden;
@@ -14491,26 +14494,9 @@ a.anchor-link {
   overflow: hidden;
 }
 
-.CodeMirror.cm-s-jupyter .highlight pre {
-/* weird, but --jp-code-padding defined to be 5px but 4px horizontal padding is hardcoded for pre.CodeMirror-line */
-  padding: var(--jp-code-padding) 4px;
+.CodeMirror pre {
   margin: 0;
-
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-
-}
-
-.jp-OutputArea-output pre {
-  line-height: inherit;
-  font-family: inherit;
-}
-
-.jp-RenderedText pre {
-  color: var(--jp-content-font-color1);
-  font-size: var(--jp-code-font-size);
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14556,10 +14542,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   display: none;
 }
 
-@page {
-    margin: 0.5in; /* Margin for each printed piece of paper */
-}
-
 @media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
@@ -14594,12 +14576,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14614,8 +14596,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Module-1:-Logistic-Regression-Optimization">Module 1: Logistic Regression Optimization<a class="anchor-link" href="#Module-1:-Logistic-Regression-Optimization">&#182;</a></h1><p><img src="logreg.jpg" alt="Logistic Regression (image from Towards Data Science)" /></p>
-<p>In this module, I create my own toy dataset of 6 ultimate frisbee players, each rated on experience, skill, and athleticism. Each is also labeled as either a &quot;good&quot; or a &quot;bad&quot; player. I would like to teach a simple logistic regression model to predict whether a player is good or bad based on their experience, skill, and athleticism without using any machine learning libraries. Here we go!</p>
+<h1 id="Module-1:-Logistic-Regression-Optimization">Module 1: Logistic Regression Optimization<a class="anchor-link" href="#Module-1:-Logistic-Regression-Optimization">&#182;</a></h1><p><img src="logreg.jpg" alt="Logistic Regression (image from Towards Data Science)"></p>
+<p>In this module, I create my own toy dataset of 6 ultimate frisbee players, each rated on experience, skill, and athleticism. Each is also labeled as either a "good" or a "bad" player. I would like to teach a simple logistic regression model to predict whether a player is good or bad based on their experience, skill, and athleticism without using any machine learning libraries. Here we go!</p>
 
 </div>
 </div>
@@ -14657,7 +14639,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -14685,10 +14669,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="2.-General-Linear-Equation">2. General Linear Equation<a class="anchor-link" href="#2.-General-Linear-Equation">&#182;</a></h2><p>Let's define the general linear equation for a logistic regression model.
-2a. $z = w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b$<br />
-2b. $z = w^T * x + b$<br />
-2c. The w values represent the weights of each of the inputs.<br />
+<h2 id="2.-General-Linear-Equation">2. General Linear Equation<a class="anchor-link" href="#2.-General-Linear-Equation">&#182;</a></h2><p>Let's define the general linear equation for a logistic regression model.<br>
+2a. $z = w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b$<br>
+2b. $z = w^T * x + b$<br>
+2c. The w values represent the weights of each of the inputs.<br>
 2d. The b value represents the bias.</p>
 
 </div>
@@ -14758,7 +14742,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -14798,7 +14784,7 @@ class="
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="5.-Sigmoid-Function">5. Sigmoid Function<a class="anchor-link" href="#5.-Sigmoid-Function">&#182;</a></h2><p>In order to convert our linear predictions into a binary classification, let's transform the linear predictions using the sigmoid function as an activation function.</p>
-<p>5a. The sigmoid function is defined as $1/(1+e^{-z})$ as well as $e^z/(1+e^z)$<br />
+<p>5a. The sigmoid function is defined as $1/(1+e^{-z})$ as well as $e^z/(1+e^z)$<br>
 5b. Let's prove that these are equivalent:
 $$
 \begin{align}  
@@ -14851,7 +14837,9 @@ $$</p>
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -14881,8 +14869,9 @@ $$</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="6.-Run-the-First-Epoch">6. Run the First Epoch<a class="anchor-link" href="#6.-Run-the-First-Epoch">&#182;</a></h2><p>Now let's get right into it! We're going to initialize the weight vector with 1s and the bias with 0, and run the first epoch.</p>
-<p>6a. Weight vector: $[w_1, w_2, w_3] = [1, 1, 1]$<br />
+<p>6a. Weight vector: $[w_1, w_2, w_3] = [1, 1, 1]$<br>
 6b. Now we calculate the vector z:</p>
+
 <pre><code>math
  z  = w^T * x + b
     = [ 1.0,1.00,1.0,
@@ -14897,9 +14886,9 @@ $$</p>
         1.45,
         0.85,
         2.75,
-        0.20 ]
-</code></pre>
+        0.20 ]</code></pre>
 <p>6c. Now let's apply the activation function to get y^.</p>
+
 <pre><code>math
 y^ = sigmoid(z) 
     = 1/(1+e^-z) = 
@@ -14915,9 +14904,9 @@ y^ = sigmoid(z)
         0.8101, 
         0.7000, 
         0.9404, 
-        0.5498 ]
-</code></pre>
+        0.5498 ]</code></pre>
 <p>6d. Finally, let's compare y^ with y.</p>
+
 <pre><code>math
 
   [ 1,   
@@ -14932,8 +14921,7 @@ y = 0,
 y^(rounded) = 1,
               1, 
               1, 
-              1 ]
-</code></pre>
+              1 ]</code></pre>
 <p>Only 3 of the 6 predictions were correct, for rows 1, 2, and 5. This is a 50% accuracy rate, which is just as bad as randomly guessing. Therefore, y^ is not a good predictor of y.</p>
 <p>6e. What's next? We can adjust our parameters w and b to improve our predictions. In order to determine how to adjust them, we can define a loss function to measure how far off y^ is from y. We can then find the gradient of the loss function with respect to our parameters, and change our parameters in the direction of the gradient to minimize the loss.</p>
 
@@ -14949,10 +14937,11 @@ y^(rounded) = 1,
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="7.-Loss-Function">7. Loss Function<a class="anchor-link" href="#7.-Loss-Function">&#182;</a></h2><p>To improve our predictions, we're going to need to define how bad we did at predicting y. We can do this by defining a loss function. For this binary classification problem, we can use the Binary Cross Entropy Loss function.</p>
 <p>7a. Binary Cross Entropy Function:</p>
+
 <pre><code>math
-LCE(y^, y) = 1/N SUM_i^N {-yi * log(y^i) - (1-yi) * log(1-y^i)}
-</code></pre>
+LCE(y^, y) = 1/N SUM_i^N {-yi * log(y^i) - (1-yi) * log(1-y^i)}</code></pre>
 <p>7b. Calculate the Binary Cross Entropy Loss for the first epoch:</p>
+
 <pre><code>math
 LCE_1(y^1, y1) = - y1 * log(y^1) - (1-y1) * log(1-y^1) = - 1 * log(0.9526) - (1-1) * log(1-0.9526) = -log(0.9526) = 0.0482
 LCE_2(y^2, y2) = - y2 * log(y^2) - (1-y2) * log(1-y^2) = - 1 * log(0.8706) - (1-1) * log(1-0.8706) = -log(0.8706) = 0.1386
@@ -14961,8 +14950,7 @@ LCE_4(y^4, y4) = - y4 * log(y^4) - (1-y4) * log(1-y^4) = - 0 * log(0.7000) - (1-
 LCE_5(y^5, y5) = - y5 * log(y^5) - (1-y5) * log(1-y^5) = - 1 * log(0.9404) - (1-1) * log(1-0.9404) = -log(0.9404) = 0.0614
 LCE_6(y^6, y6) = - y6 * log(y^6) - (1-y6) * log(1-y^6) = - 0 * log(0.5498) - (1-0) * log(1-0.5498) = -log(0.4502) = 0.7981
 
-LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0482 + 0.1386 + 1.6613 + 1.2040 + 0.0614 + 0.7981)/6 = 0.6519
-</code></pre>
+LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0482 + 0.1386 + 1.6613 + 1.2040 + 0.0614 + 0.7981)/6 = 0.6519</code></pre>
 <p>7c. Given this, my current loss is my average cross entropy loss, 0.6519. This is not very good, as we want the LCE to approach 0. To improve this, I would adjust my weights and bias to get my predictions closer to the actual values. If the LCE is 0, that means that my predictions exactly match the actual values.</p>
 
 </div>
@@ -14976,11 +14964,12 @@ LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0482 + 0.1386 + 1.6613 + 1.2040 + 0.0614 + 0
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="8.-Try-Again-with-New-Weights">8. Try Again with New Weights<a class="anchor-link" href="#8.-Try-Again-with-New-Weights">&#182;</a></h2><p>Before we methodically change our weights, let's take a guess at how to change them to reduce the loss. To do, I'll use domain knowledge. I know that skill, experience, and athleticism are all positively correlated with player rating, so I know that I want to keep my weights positive. All players only spanned a narrow range of predicted values, so I think I can increase my weights to differentiate them more. Every player was rated good in the last iteration, so I also need to adjust my bias downwards. I will then double the weights and try a bias of -3. I will try the following weights and bias:</p>
+
 <pre><code>math
 w = [2, 2, 2]
-b = -4
-</code></pre>
+b = -4</code></pre>
 <p>Recalculating the vector z:</p>
+
 <pre><code>math
  z  = w^T * x + b
     = [ 1.0,1.00,1.0,
@@ -14995,9 +14984,9 @@ b = -4
         -0.1,
         -1.3,
          2.5,
-        -2.6 ]
-</code></pre>
+        -2.6 ]</code></pre>
 <p>Now apply the activation function to get y^.</p>
+
 <pre><code>math
 y^ = sigmoid(z) 
     = 1/(1+e^-z) = 
@@ -15013,9 +15002,9 @@ y^ = sigmoid(z)
         0.4750, 
         0.2142, 
         0.9241, 
-        0.0691 ]
-</code></pre>
+        0.0691 ]</code></pre>
 <p>Now recalculate the average loss using binary cross entropy:</p>
+
 <pre><code>math
 LCE_2(y^2, y2) = - y2 * log(y^2) - (1-y2) * log(1-y^2) = - 1 * log(0.9526) - (1-1) * log(1-0.9526) = -log(0.9526) = 0.0486
 LCE_1(y^1, y1) = - y1 * log(y^1) - (1-y1) * log(1-y^1) = - 1 * log(0.6900) - (1-1) * log(1-0.6900) = -log(0.6900) = 0.3711
@@ -15024,8 +15013,7 @@ LCE_4(y^4, y4) = - y4 * log(y^4) - (1-y4) * log(1-y^4) = - 0 * log(0.2142) - (1-
 LCE_5(y^5, y5) = - y5 * log(y^5) - (1-y5) * log(1-y^5) = - 1 * log(0.9241) - (1-1) * log(1-0.9241) = -log(0.9241) = 0.0789
 LCE_6(y^6, y6) = - y6 * log(y^6) - (1-y6) * log(1-y^6) = - 0 * log(0.0691) - (1-0) * log(1-0.0691) = -log(0.9309) = 0.0716
 
-LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0486 + 0.3711 + 0.6444 + 0.2410 + 0.0789 + 0.0716)/6 = 0.2426
-</code></pre>
+LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0486 + 0.3711 + 0.6444 + 0.2410 + 0.0789 + 0.0716)/6 = 0.2426</code></pre>
 <p>My new loss is 0.2426, which is much better than my previous loss of 0.6519. This means that my predictions are much closer to the actual values, so I was right about how to change my weights!</p>
 
 </div>
@@ -15040,6 +15028,7 @@ LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0486 + 0.3711 + 0.6444 + 0.2410 + 0.0789 + 0
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="9.-Calculate-the-Gradient">9. Calculate the Gradient<a class="anchor-link" href="#9.-Calculate-the-Gradient">&#182;</a></h2><p>Okay, now it's time to improve our predictions methodically. To do this, we need to calculate the gradient of the loss function with respect to our parameters. We can then change our parameters in the direction of the gradient to minimize the loss.</p>
 <p>9a1. Find the partial derivate of the LCE with respect to the weight vector w:</p>
+
 <pre><code>math
 dLCE/dw = dLCE/dy^ * dy^/dz * dz/dw
 
@@ -15066,9 +15055,9 @@ dLCE/dw = dLCE/dy^ * dy^/dz * dz/dw
         = 1/N (-y + y^y + y^ - y^y) * x
         = 1/N (y^ - y)^T * x
 
-dLCE/dw = 1/N (y^ - y)^T * x
-</code></pre>
+dLCE/dw = 1/N (y^ - y)^T * x</code></pre>
 <p>9a2. Find the partial derivate of the LCE with respect to the bias b:</p>
+
 <pre><code>math
 
 dLCE/db = dLCE/dy^ * dy^/dz * dz/db
@@ -15084,18 +15073,16 @@ dLCE/db = dLCE/dy^ * dy^/dz * dz/dw
         = 1/N (-y/y^ + (1-y)/(1-y^)) * y^ * (1-y^) * 1
         = 1/N (y^ - y) * 1
 
-dLCE/db = 1/N (y^ - y)
-</code></pre>
+dLCE/db = 1/N (y^ - y)</code></pre>
 <p>9b. What do these derivatives mean in a few sentences?</p>
 <p>9b1. The partial derivative of the loss function with respect to w is proportional to:</p>
 <ul>
-<li>The difference between the predicted value and the actual value -- the closer these two values are, the smaller the derivative will be. This makes sense since that's our objective. It also flips the sign of the gradient if we overshoot in our prediction.</li>
-<li>The inverse of the sample size -- the larger the sample size, the smaller the derivative will be. This makes sense since the larger the sample size, less sensitive it is to a given input, so the less we want to change the weight.</li>
+<li>The difference between the predicted value and the actual value -- the closer these two values are, the smaller the derivative will be. This makes sense since that's our objective. It also flips the sign of the gradient if we overshoot in our prediction. </li>
 <li>The input value X -- the smaller the input value, the smaller the derivative will be. This makes sense since the smaller the input value, the less it will affect the output value, so the less we want to change the weight. Also, if it's negative, it will flip the direction of the gradient.</li>
 </ul>
 <p>9b2. The partial derivative of the loss function with respect to b is proportional to:</p>
 <ul>
-<li>The first two above factors</li>
+<li>The first above factor</li>
 <li>It does not depend on the input value X, since the bias term isn't multiplied by the inputs.</li>
 </ul>
 
@@ -15111,27 +15098,28 @@ dLCE/db = 1/N (y^ - y)
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="10.-Run-the-Second-Epoch-with-Gradient-Descent">10. Run the Second Epoch with Gradient Descent<a class="anchor-link" href="#10.-Run-the-Second-Epoch-with-Gradient-Descent">&#182;</a></h2><p>Now that we have our gradients, we can use them to update our weights. For now for simplicity, we won't update the bias.</p>
 <p>10a. Calculate the new weights given the gradient and learning rate of 1:</p>
+
 <pre><code>math
 dLCE/dw = 1/N (y^ - y)^T * x
 
         y^ - y = [ 0.9526, 0.8699, 0.8100, 0.7006, 0.9399, 0.5498 ] - [ 1, 1, 0, 0, 1, 0 ] = [ -0.0474, -0.1301, 0.8100, 0.7006, -0.0601, 0.5498 ]
 
-dLCE/dw = 1/6 * [ -0.0474, -0.1301, 0.8100, 0.7006, -0.0601, 0.5498 ] * [1	1	1
-                                                                         0.8	0.5	0.6
-                                                                         0.4	0.25	0.8
-                                                                         0	0.25	0.6
-                                                                         1	0.75	1
-                                                                         0.2	0	0   ]
+dLCE/dw = 1/6 * [ -0.0474, -0.1301, 0.8100, 0.7006, -0.0601, 0.5498 ] * [1  1   1
+                                                                         0.8    0.5 0.6
+                                                                         0.4    0.25    0.8
+                                                                         0  0.25    0.6
+                                                                         1  0.75    1
+                                                                         0.2    0   0   ]
 
         = 1/6 * [0.2224, 0.2201, 0.8828]
         = [0.0371, 0.0367, 0.1471]
 
 w2 = w1 - LR * dLCE/dw 
    = [1, 1, 1] - 1 * [0.0371, 0.0367, 0.1471]
-   = [0.9629, 0.9633, 0.8529]
-</code></pre>
+   = [0.9629, 0.9633, 0.8529]</code></pre>
 <p>10b. Run another epoch with the updated weights.</p>
 <p>Given the new weights w2, calculate the new z values:</p>
+
 <pre><code>math
  z  = w^T * x + b
     = [ 1.0,1.00,1.0,
@@ -15146,9 +15134,9 @@ w2 = w1 - LR * dLCE/dw
         1.3083,
         0.7526,
         2.5383,
-        0.1926 ]
-</code></pre>
+        0.1926 ]</code></pre>
 <p>Given the new z values, calculate the new y^ values:</p>
+
 <pre><code>math
 y^ = sigmoid(z) 
     = 1/(1+e^-z) = 
@@ -15164,9 +15152,9 @@ y^ = sigmoid(z)
         0.7872, 
         0.6797, 
         0.9268, 
-        0.5480 ]
-</code></pre>
+        0.5480 ]</code></pre>
 <p>Given the new y^ values, calculate the new LCE:</p>
+
 <pre><code>math
 LCE_1(y^1, y1) = - y1 * log(y^1) - (1-y1) * log(1-y^1) = - 1 * log(0.9415) - (1-1) * log(1-0.9415) = -log(0.9415) = 0.0602
 LCE_2(y^2, y2) = - y2 * log(y^2) - (1-y2) * log(1-y^2) = - 1 * log(0.8537) - (1-1) * log(1-0.8537) = -log(0.8537) = 0.1582
@@ -15175,8 +15163,7 @@ LCE_4(y^4, y4) = - y4 * log(y^4) - (1-y4) * log(1-y^4) = - 0 * log(0.6797) - (1-
 LCE_5(y^5, y5) = - y5 * log(y^5) - (1-y5) * log(1-y^5) = - 1 * log(0.9268) - (1-1) * log(1-0.9268) = -log(0.9268) = 0.0760
 LCE_6(y^6, y6) = - y6 * log(y^6) - (1-y6) * log(1-y^6) = - 0 * log(0.5480) - (1-0) * log(1-0.5480) = -log(0.4520) = 0.7941
 
-LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0602 + 0.1582 + 1.5475 + 1.1386 + 0.0760 + 0.7941)/6 = 0.6291
-</code></pre>
+LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0602 + 0.1582 + 1.5475 + 1.1386 + 0.0760 + 0.7941)/6 = 0.6291</code></pre>
 <p>10c. My new loss after updating the weights is 0.6291, which is better than the original loss of 0.6519! This is really interesting since I think that larger weights would actually improve the loss, as shown in problem #8. However, it seems that smaller weights improved the loss because it brought the predictions closer to 0, which brought bad players closer to negative z values. I suspect that the weights will get smaller and smaller until the bias term is negative enough, then the weights will increase. I hope that's actually the case when I code it with more epochs below!</p>
 
 </div>
@@ -15190,13 +15177,13 @@ LCE(y^, y) = 1/N SUM_i^N LCE_i = (0.0602 + 0.1582 + 1.5475 + 1.1386 + 0.0760 + 0
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="11.-Hand-Code-a-Logistic-Regression-Model">11. Hand Code a Logistic Regression Model<a class="anchor-link" href="#11.-Hand-Code-a-Logistic-Regression-Model">&#182;</a></h2><p>Now for the fun part! Instead of doing math by hand, we're going to let Python do the math for us. We're going to code a logistic regression model from scratch! The requirements of this code are as follows:</p>
-<p>(a) Read in any .csv labeled dataset where the Label is called &quot;LABEL&quot;. 
-(b) The code should create &quot;y&quot; (the label) as a numpy array of 0 and 1. So, if the labels are originally something like POS and NEG, you r code will need to determine this, and then update all POS to 1 and all NEG to 0. The code should be able to do this for any two label options.<br />
-(c) The code will also create X which is the entire dataset (without the labels) as a numpy array.<br />
-(d) The code will initialize w and b and a learning rate.<br />
-(e) The code will need to contain a function for Sigmoid and for z, etc.<br />
-(f) The code will then need to perform gradient descent to optimize (reduce) LCE.<br />
-(g) Be sure that the code can run iteratively for as many epochs as you wish.<br />
+<p>(a) Read in any .csv labeled dataset where the Label is called "LABEL". 
+(b) The code should create "y" (the label) as a numpy array of 0 and 1. So, if the labels are originally something like POS and NEG, you r code will need to determine this, and then update all POS to 1 and all NEG to 0. The code should be able to do this for any two label options.<br>
+(c) The code will also create X which is the entire dataset (without the labels) as a numpy array.<br>
+(d) The code will initialize w and b and a learning rate.<br>
+(e) The code will need to contain a function for Sigmoid and for z, etc.<br>
+(f) The code will then need to perform gradient descent to optimize (reduce) LCE.<br>
+(g) Be sure that the code can run iteratively for as many epochs as you wish.<br>
 (h) Show a final confusion matrix AND show a graph of how the LCE reduces as epochs iterate.
 Recommended: Use the code to see if your by-hand results from above are right.</p>
 
@@ -15216,7 +15203,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">def</span> <span class="nf">read_data</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;read in data from a file path</span>
+    <span class="sd">&quot;&quot;&quot;read in data from a file path</span>
 <span class="sd">    path is a string pointing to a local directory</span>
 <span class="sd">    the data file should be a csv</span>
 <span class="sd">    if debug &gt;= 1: </span>
@@ -15232,7 +15219,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
 
 
 <span class="k">def</span> <span class="nf">clean_data</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;clean the data</span>
+    <span class="sd">&quot;&quot;&quot;clean the data</span>
 <span class="sd">    Takes in a dataframe df</span>
 <span class="sd">    Returns two numpy arrays x and y</span>
 <span class="sd">    x is inputs normalized between 0-1</span>
@@ -15281,7 +15268,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
 
 
 <span class="k">def</span> <span class="nf">convert_labels</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;converts y labels</span>
+    <span class="sd">&quot;&quot;&quot;converts y labels</span>
 <span class="sd">    accepts in a numpy array with binary values</span>
 <span class="sd">    converts the first value to 0, all others to 1</span>
 <span class="sd">    returns a numpy array of 0s and 1s</span>
@@ -15297,7 +15284,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
     <span class="k">return</span> <span class="n">y</span>
 
 <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;normalizes x values</span>
+    <span class="sd">&quot;&quot;&quot;normalizes x values</span>
 <span class="sd">    accepts a numpy array of floats</span>
 <span class="sd">    converts them to a max of 1 and min of 0</span>
 <span class="sd">    returns a numpy array</span>
@@ -15315,7 +15302,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
     <span class="k">return</span> <span class="n">xnorm</span>
 
 <span class="k">def</span> <span class="nf">logistic_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;run logistic regression on the input data</span>
+    <span class="sd">&quot;&quot;&quot;run logistic regression on the input data</span>
 <span class="sd">    accepts the inputs, labels, LR, and # of epochs</span>
 <span class="sd">    runs logistic regression for the given number of epochs</span>
 <span class="sd">    graphs the error rate over time</span>
@@ -15409,7 +15396,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
     <span class="k">return</span> <span class="n">weights_df</span><span class="p">,</span> <span class="n">y_hat</span>
 
 <span class="k">def</span> <span class="nf">plot_results</span><span class="p">(</span><span class="n">weights_df</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;plot the results of the logistic regression</span>
+    <span class="sd">&#39;&#39;&#39;plot the results of the logistic regression</span>
 <span class="sd">    takes in a dataframe with n weights, the bias, and loss for each epoch</span>
 <span class="sd">    plots the error over time</span>
 <span class="sd">    plots the weights and bias over time</span>
@@ -15463,7 +15450,7 @@ Recommended: Use the code to see if your by-hand results from above are right.</
     <span class="k">return</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;main function</span>
+    <span class="sd">&quot;&quot;&quot;main function</span>
 <span class="sd">    Entrypoint to the file</span>
 <span class="sd">    Calls all other functions</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -15497,7 +15484,9 @@ Recommended: Use the code to see if your by-hand results from above are right.</
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15512,7 +15501,9 @@ Plotting the error over time...
 </pre>
 </div>
 </div>
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15527,7 +15518,9 @@ class="
 </div>
 
 </div>
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15537,7 +15530,9 @@ class="
 </pre>
 </div>
 </div>
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15552,7 +15547,9 @@ class="
 </div>
 
 </div>
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15562,7 +15559,9 @@ class="
 </pre>
 </div>
 </div>
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
@@ -15601,7 +15600,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># export to HTML for webpage</span>
@@ -15622,20 +15621,24 @@ class="
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
+
 <div class="jp-OutputArea-child">
+
     
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>[NbConvertApp] Converting notebook mod1.ipynb to html
-[NbConvertApp] Writing 796341 bytes to mod1.html
+[NbConvertApp] Writing 796348 bytes to mod1.html
 </pre>
 </div>
 </div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+
+<div class="jp-OutputArea-child">
+
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
 
 
 
