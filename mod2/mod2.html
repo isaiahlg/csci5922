@@ -14622,9 +14622,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="%231:-Illustrate-the-Matrices-Associated-with-the-Neural-Network">#1: Illustrate the Matrices Associated with the Neural Network<a class="anchor-link" href="#%231:-Illustrate-the-Matrices-Associated-with-the-Neural-Network">&#182;</a></h3><p>$X = 
 \begin{bmatrix}
-x_1\\
-x_2\\
-x_3
+x_1 &amp; x_2 &amp; x_3
 \end{bmatrix}$</p>
 <p>$W1 = 
 \begin{bmatrix}
@@ -14892,14 +14890,10 @@ Y is:
 <h3 id="%233:-Check-the-Feed-Forward-Math-Above-by-Hand">#3: Check the Feed Forward Math Above by Hand<a class="anchor-link" href="#%233:-Check-the-Feed-Forward-Math-Above-by-Hand">&#182;</a></h3><p>Use just the first row of the dataset, assume W1 is 1, W2 is 2, b is 0, and c is -1. Check it against the code above.</p>
 <h4 id="%233.1:-Run-a-Feed-Forward-Iteration-by-Hand">#3.1: Run a Feed Forward Iteration by Hand<a class="anchor-link" href="#%233.1:-Run-a-Feed-Forward-Iteration-by-Hand">&#182;</a></h4><p>$X = 
 \begin{bmatrix}
-x_1\\
-x_2\\
-x_3
+x_1 &amp; x_2 &amp; x_3
 \end{bmatrix} = 
 \begin{bmatrix}
-1\\
-1\\
-1
+1 &amp; 1 &amp; 1
 \end{bmatrix}
 $</p>
 <p>$W1 = 
@@ -15710,16 +15704,296 @@ class="
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>This concludes Part 1. We built a fully connected feedforward Neural Network for 3D input data. The NN has one hidden layer with 4 nodes and makes a single binary prediction. We trained the model using backpropogation and tested it with a new dataset.</p>
-<h2 id="Part-2:-Multi-Nomial-Neural-Network-with-Softmax,-Catagorical-Cross-Entropy,-and-One-Hot-Encoding">Part 2: Multi-Nomial Neural Network with Softmax, Catagorical Cross-Entropy, and One-Hot Encoding<a class="anchor-link" href="#Part-2:-Multi-Nomial-Neural-Network-with-Softmax,-Catagorical-Cross-Entropy,-and-One-Hot-Encoding">&#182;</a></h2>
+<h2 id="Part-2:-Multi-Nomial-Neural-Network-with-Softmax,-Catagorical-Cross-Entropy,-and-One-Hot-Encoding">Part 2: Multi-Nomial Neural Network with Softmax, Catagorical Cross-Entropy, and One-Hot Encoding<a class="anchor-link" href="#Part-2:-Multi-Nomial-Neural-Network-with-Softmax,-Catagorical-Cross-Entropy,-and-One-Hot-Encoding">&#182;</a></h2><h3 id="%231:-Diagram-of-New-Neural-Network">#1: Diagram of New Neural Network<a class="anchor-link" href="#%231:-Diagram-of-New-Neural-Network">&#182;</a></h3><p><img src="nn2.png" alt="image2"></p>
+
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%232:-Feedforward-Equations-for-New-Neural-Network">#2: Feedforward Equations for New Neural Network<a class="anchor-link" href="#%232:-Feedforward-Equations-for-New-Neural-Network">&#182;</a></h3><p>$X = 
+\begin{bmatrix}
+x_1 &amp; x_2 &amp; x_3
+\end{bmatrix}$</p>
+<p>$W1 = 
+\begin{bmatrix}
+w_{11} &amp; w_{21} &amp; w_{31}\\
+w_{12} &amp; w_{22} &amp; w_{32}\\
+\end{bmatrix}$</p>
+<p>$B = 
+\begin{bmatrix}
+b_1 &amp; b_2 &amp; b_3 &amp; b_4
+\end{bmatrix}$</p>
+<p>$Z1 = X * W1.T + B = 
+\begin{bmatrix}
+z_1\\
+z_2
+\end{bmatrix}$</p>
+<p>$H = ReLU(Z1) =
+\begin{bmatrix}
+h_1\\
+h_2\\
+\end{bmatrix} = 
+\begin{bmatrix}
+ReLU(z_1)\\
+ReLU(z_2)\\
+\end{bmatrix}$</p>
+<p>$W2 =
+\begin{bmatrix}
+w_{11} &amp; w_{21}\\
+w_{12} &amp; w_{22}\\
+w_{13} &amp; w_{23}\\
+w_{14} &amp; w_{24}\\
+\end{bmatrix}$</p>
+<p>$Z2 = H * W2.T + C = 
+\begin{bmatrix}
+Z2_1\\
+Z2_2\\
+Z2_3\\
+Z2_4\\
+\end{bmatrix}$</p>
+<p>$\hat{y} = softmax(Z2) = 
+\begin{bmatrix}
+\hat{y}_1\\
+\hat{y}_2\\
+\hat{y}_3\\
+\hat{y}_4
+\end{bmatrix} = 
+\frac{1}{\sum{e^{\hat{y}}}}
+\begin{bmatrix}
+e^{\hat{y}_1}\\ 
+e^{\hat{y}_2}\\ 
+e^{\hat{y}_3}\\ 
+e^{\hat{y}_4}
+\end{bmatrix}$</p>
+<p>$o = argmax(\hat{y})$ (scalar)</p>
+<p>$ReLU(z) = max(z, 0)$</p>
+<p>$softmax(z) = \frac{e^z}{\sum{e^z}}$</p>
+<p>Categorical Cross Entropy:<br>
+$L = -\sum{y_i * log(\hat{y}_i)}$</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%233-Derivatives-of-the-Loss-Function-for-Each-Parameter-(W1,-B,-W2,-C)">#3 Derivatives of the Loss Function for Each Parameter (W1, B, W2, C)<a class="anchor-link" href="#%233-Derivatives-of-the-Loss-Function-for-Each-Parameter-(W1,-B,-W2,-C)">&#182;</a></h3><p><strong>Before we calculate the derivatives that require the chain rule, let's define each of the partial derivatives that we'll need to use:</strong></p>
+<p>Partial derivative of L with respect to $\hat{y}$:
+$\frac{\partial L}{\partial \hat{y}} = \frac{y}{\hat{y}}$</p>
+<p>Partial derivative of $\hat{y}$ with respect to Z2:
+$\frac{\partial \hat{y}}{\partial Z2} = 
+\begin{bmatrix}
+\hat{y_1}*(1-\hat{y_1}) &amp; -\hat{y_1}*\hat{y_2} &amp; -\hat{y_1}*\hat{y_3} &amp; -\hat{y_1}*\hat{y_4}\\
+-\hat{y_2}*\hat{y_1} &amp; \hat{y_2}*(1-\hat{y_2}) &amp; -\hat{y_2}*\hat{y_3} &amp; -\hat{y_2}*\hat{y_4}\\
+-\hat{y_3}*\hat{y_1} &amp; -\hat{y_3}*\hat{y_2} &amp; \hat{y_3}*(1-\hat{y_3}) &amp; -\hat{y_3}*\hat{y_4}\\
+-\hat{y_4}*\hat{y_1} &amp; -\hat{y_4}*\hat{y_2} &amp; -\hat{y_4}*\hat{y_3} &amp; \hat{y_4}*(1-\hat{y_4})\\ 
+\end{bmatrix}$</p>
+<p>Partial derivative of Z2 with respect to C:
+$\frac{\partial Z2}{\partial C} = 1$</p>
+<p>Partial derivative of Z2 with respect to W2:
+$\frac{\partial Z2}{\partial W2} = H$</p>
+<p>Partial derivative of Z2 with respect to H:
+$\frac{\partial Z2}{\partial W2} = W2$</p>
+<p>Partial derivative of H with respect to Z1:
+$\frac{\partial H}{\partial Z1} = 
+\begin{cases}
+      0 \quad if z &lt;= 0\\
+      1 \quad if z &gt; 0\\
+\end{cases}$</p>
+<p>Partial derivative of Z1 with respect to B:
+$\frac{\partial Z1}{\partial B} = 1$</p>
+<p>Partial derivative of Z1 with respect to W1:
+$\frac{\partial Z1}{\partial W1} = X$</p>
+<p>Partial derivative of Z1 with respect to X:
+$\frac{\partial Z1}{\partial W1} = W1$</p>
+<p><strong>Okay, now we're ready to find the partial derivatives of the loss function with respect to each parameter:</strong></p>
+<p>Partial derivative of L with respect to C:
+$\frac{\partial L}{\partial C}\\
+\quad = \frac{\partial L}{\partial \hat{y}} * \frac{\partial \hat{y}}{\partial Z2} * \frac{\partial Z2}{\partial C}\\
+\quad = \frac{y}{\hat{y}} * 
+\begin{bmatrix}
+\hat{y_1}*(1-\hat{y_1}) &amp; -\hat{y_1}*\hat{y_2} &amp; -\hat{y_1}*\hat{y_3} &amp; -\hat{y_1}*\hat{y_4}\\
+-\hat{y_2}*\hat{y_1} &amp; \hat{y_2}*(1-\hat{y_2}) &amp; -\hat{y_2}*\hat{y_3} &amp; -\hat{y_2}*\hat{y_4}\\
+-\hat{y_3}*\hat{y_1} &amp; -\hat{y_3}*\hat{y_2} &amp; \hat{y_3}*(1-\hat{y_3}) &amp; -\hat{y_3}*\hat{y_4}\\
+-\hat{y_4}*\hat{y_1} &amp; -\hat{y_4}*\hat{y_2} &amp; -\hat{y_4}*\hat{y_3} &amp; \hat{y_4}*(1-\hat{y_4})\\ 
+\end{bmatrix} * 1
+$</p>
+<p>Partial derivative of L with respect to W2:
+$\frac{\partial L}{\partial W2}\\\
+\quad = \frac{\partial L}{\partial \hat{y}} * \frac{\partial \hat{y}}{\partial Z2} * \frac{\partial Z2}{\partial W2}\\
+\quad = \frac{y}{\hat{y}} *
+\begin{bmatrix}
+\hat{y_1}*(1-\hat{y_1}) &amp; -\hat{y_1}*\hat{y_2} &amp; -\hat{y_1}*\hat{y_3} &amp; -\hat{y_1}*\hat{y_4}\\
+-\hat{y_2}*\hat{y_1} &amp; \hat{y_2}*(1-\hat{y_2}) &amp; -\hat{y_2}*\hat{y_3} &amp; -\hat{y_2}*\hat{y_4}\\
+-\hat{y_3}*\hat{y_1} &amp; -\hat{y_3}*\hat{y_2} &amp; \hat{y_3}*(1-\hat{y_3}) &amp; -\hat{y_3}*\hat{y_4}\\
+-\hat{y_4}*\hat{y_1} &amp; -\hat{y_4}*\hat{y_2} &amp; -\hat{y_4}*\hat{y_3} &amp; \hat{y_4}*(1-\hat{y_4})\\
+\end{bmatrix} * H \\
+\quad = \frac{\partial L}{\partial C} * H
+$</p>
+<p>Partial derivative of L with respect to B:
+$\frac{\partial L}{\partial B}\\
+\quad = \frac{\partial L}{\partial \hat{y}} * \frac{\partial \hat{y}}{\partial Z2} * \frac{\partial Z2}{\partial H} * \frac{\partial H}{\partial Z1} * \frac{\partial Z1}{\partial B}\\
+\quad = \frac{y}{\hat{y}} *
+\begin{bmatrix}
+\hat{y_1}*(1-\hat{y_1}) &amp; -\hat{y_1}*\hat{y_2} &amp; -\hat{y_1}*\hat{y_3} &amp; -\hat{y_1}*\hat{y_4}\\
+-\hat{y_2}*\hat{y_1} &amp; \hat{y_2}*(1-\hat{y_2}) &amp; -\hat{y_2}*\hat{y_3} &amp; -\hat{y_2}*\hat{y_4}\\
+-\hat{y_3}*\hat{y_1} &amp; -\hat{y_3}*\hat{y_2} &amp; \hat{y_3}*(1-\hat{y_3}) &amp; -\hat{y_3}*\hat{y_4}\\
+-\hat{y_4}*\hat{y_1} &amp; -\hat{y_4}*\hat{y_2} &amp; -\hat{y_4}*\hat{y_3} &amp; \hat{y_4}*(1-\hat{y_4})\\
+\end{bmatrix} * W2 *
+\begin{cases}
+      0 \quad if z &lt;= 0\\
+      1 \quad if z &gt; 0\\
+\end{cases} * 1\\
+\quad = \frac{\partial L}{\partial C} * W2 * 
+\begin{cases}
+      0 \quad if z &lt;= 0\\
+      1 \quad if z &gt; 0\\
+\end{cases}
+$</p>
+<p>Partial derivative of L with respect to W1:
+$\frac{\partial L}{\partial W1}\\
+\quad = \frac{\partial L}{\partial \hat{y}} * \frac{\partial \hat{y}}{\partial Z2} * \frac{\partial Z2}{\partial H} * \frac{\partial H}{\partial Z1} * \frac{\partial Z1}{\partial W1}\\
+\quad = \frac{y}{\hat{y}} *
+\begin{bmatrix}
+\hat{y_1}*(1-\hat{y_1}) &amp; -\hat{y_1}*\hat{y_2} &amp; -\hat{y_1}*\hat{y_3} &amp; -\hat{y_1}*\hat{y_4}\\
+-\hat{y_2}*\hat{y_1} &amp; \hat{y_2}*(1-\hat{y_2}) &amp; -\hat{y_2}*\hat{y_3} &amp; -\hat{y_2}*\hat{y_4}\\
+-\hat{y_3}*\hat{y_1} &amp; -\hat{y_3}*\hat{y_2} &amp; \hat{y_3}*(1-\hat{y_3}) &amp; -\hat{y_3}*\hat{y_4}\\
+-\hat{y_4}*\hat{y_1} &amp; -\hat{y_4}*\hat{y_2} &amp; -\hat{y_4}*\hat{y_3} &amp; \hat{y_4}*(1-\hat{y_4})\\
+\end{bmatrix} * W2 *
+\begin{cases}
+      0 \quad if z &lt;= 0\\
+      1 \quad if z &gt; 0\\
+\end{cases} * X\\
+\quad = \frac{\partial L}{\partial C} * W2 * 
+\begin{cases}
+      0 \quad if z &lt;= 0\\
+      1 \quad if z &gt; 0\\
+\end{cases} * X \\
+\quad = \frac{\partial L}{\partial B} * X
+$</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%234:-Test-Calculation-of-Softmax">#4: Test Calculation of Softmax<a class="anchor-link" href="#%234:-Test-Calculation-of-Softmax">&#182;</a></h3><p>Assume $Z2 = \begin{bmatrix} 1.1 \\ 2.2 \\ 0.2 \\ -1.7 \end{bmatrix}$, let's calculate $\hat{y}$.</p>
+<p>$\hat{y} = softmax(Z2)\\
+\quad = \frac{1}{\sum{e^{Z2_i}}} 
+    \begin{bmatrix}
+    e^{1.1} \\
+    e^{2.2} \\
+    e^{0.2} \\
+    e^{-1.7} \\
+    \end{bmatrix}\\
+\quad = \frac{1}{e^{1.1} + e^{2.2} + e^{0.2} + e^{-1.7}} 
+    \begin{bmatrix}
+    e^{1.1} \\
+    e^{2.2} \\
+    e^{0.2} \\
+    e^{-1.7} \\
+    \end{bmatrix}\\
+\quad = \frac{1}{13.43} 
+    \begin{bmatrix}
+    3.004 \\
+    9.025 \\
+    1.221 \\
+    0.1827
+    \end{bmatrix}\\
+\quad = 
+    \begin{bmatrix}
+    0.224 \\
+    0.672 \\
+    0.091 \\
+    0.014
+    \end{bmatrix}\\
+$</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%235-Write-out-the-Derivative-for-Softmax-when-$i-=-j$-and-when-$i-%5Cneq-j$">#5 Write out the Derivative for Softmax when $i = j$ and when $i \neq j$<a class="anchor-link" href="#%235-Write-out-the-Derivative-for-Softmax-when-$i-=-j$-and-when-$i-%5Cneq-j$">&#182;</a></h3><p>A reminder that softmax is defined as follows:
+$\hat{y_i} = \frac{e^{Z_i}}{\sum{e^{Z_j}}}$</p>
+<p>Another reminder on the quotient rule. If $f(x) = \frac{u(x)}{v(x)}$, then
+$f'(x) = \frac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}$</p>
+<p>Here we have $u(x) = e^{Z_i}$ and $v(x) = \sum{e^{Z_j}}$</p>
+<p><strong>First, let's calculate the derivative when $i \neq j$.</strong><br>
+Now, $u'(z_j) = 0$ and $v'(x) = e^{Z_j}$</p>
+<p>$\frac{\partial \hat{y}}{\partial Z_j } = \frac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}\\
+\quad = \frac{0 * \sum{e^{Z_j}} - e^{Z_i} * e^{Z_j}}{(\sum{e^{Z_j}})^2}\\
+\quad = -\frac{e^{Z_i}}{\sum{e^{Z_j}}}*\frac{e^{Z_j}}{\sum{e^{Z_j}}}\\
+\quad = -\hat{y_i}\hat{y_j}
+$</p>
+<p><strong>Now, let's calculate the derivative when $i = j$.</strong><br>
+Since $i = j$, $z_i = z_j$,
+now $u'(z_i) = e^{Z_i}$ and $v'(x) = e^{Z_j} = e^{Z_i}$</p>
+<p>$\frac{\partial \hat{y}}{\partial Z_j } = \frac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}\\
+\quad = \frac{e^{Z_i} * \sum{e^{Z_j}} - e^{Z_i} * e^{Z_i}}{(\sum{e^{Z_j}})^2}\\
+\quad = \frac{e^{Z_i}}{\sum{e^{Z_j}}}*\frac{\sum{e^{Z_j}}-e^{Z_i}}{\sum{e^{Z_j}}}\\
+\quad = \frac{e^{Z_i}}{\sum{e^{Z_j}}}(1-\frac{e^{Z_i}}{\sum{e^{Z_j}}})\\
+\quad = \hat{y_i}(1 - \hat{y_j})\\
+$</p>
+<p>Written in matrix form as the Jacobian, we have:<br>
+$\frac{\partial \hat{y}}{\partial Z } =
+\begin{bmatrix}
+\hat{y_1}(1-\hat{y_1}) &amp; -\hat{y_1}\hat{y_2} &amp; -\hat{y_1}\hat{y_3} &amp; -\hat{y_1}\hat{y_4}\\
+-\hat{y_2}\hat{y_1} &amp; \hat{y_2}(1-\hat{y_2}) &amp; -\hat{y_2}\hat{y_3} &amp; -\hat{y_2}\hat{y_4}\\
+-\hat{y_3}\hat{y_1} &amp; -\hat{y_3}\hat{y_2} &amp; \hat{y_3}(1-\hat{y_3}) &amp; -\hat{y_3}\hat{y_4}\\
+-\hat{y_4}\hat{y_1} &amp; -\hat{y_4}\hat{y_2} &amp; -\hat{y_4}\hat{y_3} &amp; \hat{y_4}(1-\hat{y_4})\\
+\end{bmatrix}
+$</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%236:-Partial-Derivative-of-Loss-with-Respect-to-$Z2$">#6: Partial Derivative of Loss with Respect to $Z2$<a class="anchor-link" href="#%236:-Partial-Derivative-of-Loss-with-Respect-to-$Z2$">&#182;</a></h3><p>$\frac{\partial L}{\partial Z2} = \frac{\partial L}{\partial \hat{y}} * \frac{\partial \hat{y}}{\partial Z2}\\
+\quad =
+    -\sum_{i} \frac{y_i}{\hat{y_i}} *
+    \begin{cases}
+    \hat{y_i}(1 - \hat{y_j}) \quad if i = j\\
+    \hat{y_i}\hat{y_j} \quad\quad if i \neq j\\
+    \end{cases} \\
+\quad = \hat{y}_i - y_i    
+$</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[127]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[146]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># export to HTML for webpage</span>
@@ -15732,31 +16006,6 @@ class="
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[127]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>0</pre>
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 </div>
