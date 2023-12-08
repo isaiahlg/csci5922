@@ -7522,23 +7522,92 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Let's start by writing out the equations for $z_t$, $h_t$, $o_t$, $\hat{y}_t$, and $L_t$. Assume the loss function is cross entropy loss and the activation function is the hyperbolic tangent function.</p>
 <p>$$
-z_t = W_{xz}x_t + W_{hz}h_{t-1} + b_z
+z_t = W_{xh}x_t + W_{hh}h_{t-1} + b_h
 $$</p>
 <p>$$
 h_t = \tanh(z_t)
 $$</p>
 <p>$$
-o_t = W_{ho}h_t + b_o
+o_t = W_{hy}h_t + b_y
 $$</p>
 <p>$$
 \hat{y}_t = \text{softmax}(o_t)
 $$</p>
 <p>$$
-L_t = -log(\hat{y}_t)
+L_t(y,\hat{y}) = -y_t*log(\hat{y}_t)
 $$</p>
-<p>Now let's take the derivative of the loss function with respect to the weight matrix $W_{xh}$.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>That's a lot of terms. Let's simplify this by expressing $h_t$ in terms of $x_t$ and $h_{t-1}$.</p>
 <p>$$
-\frac{\partial L_t}{\partial W_{xh}} = \frac{\partial L_t}{\partial \hat{y}_t} \frac{\partial \hat{y}_t}{\partial o_t} \frac{\partial o_t}{\partial h_t} \frac{\partial h_t}{\partial z_t} \frac{\partial z_t}{\partial W_{xh}}
+h_t = \tanh(W_{xh}x_t + W_{hh}h_{t-1} + b_h)
+$$</p>
+<p>Let's also simplify by expressing $\hat{y}_t$ in terms of $h_t$.</p>
+<p>$$
+\hat{y}_t = \text{softmax}(W_{hy}h_t + b_y)
+$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>In order to get the loss over all time steps, we need to sum the loss over all time steps.</p>
+<p>$$
+L = \sum_{t=1}^T L_t
+$$</p>
+<p>$$
+L = L_1 + L_2 + L_3 + L_4
+$$</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Okay, now we're ready to write out the derivative of the loss function with respect to $W_{xh}$. It will be a sum of the derivatives for each time step.</p>
+<p>$$
+\frac{\partial L}{\partial W_{xh}} = \frac{\partial L_1}{\partial W_{xh}} + \frac{\partial L_2}{\partial W_{xh}} + \frac{\partial L_3}{\partial W_{xh}} + \frac{\partial L_4}{\partial W_{xh}}
+$$</p>
+<p>Let's start with $L_1$ and work our way to $L_4$.</p>
+<p>$$
+\frac{\partial L_1}{\partial W_{xh}} = \frac{\partial L_1}{\partial \hat{y}_1} \frac{\partial \hat{y}_1}{\partial h_1} \frac{\partial h_1}{\partial W_{xh}}
+$$</p>
+<p>Now let's write out the derivative of $L_2$ with respect to $W_{xh}$. This will depend on $h_2$ and $h_1$.</p>
+<p>$$
+\frac{\partial L_2}{\partial W_{xh}} = \frac{\partial L_2}{\partial \hat{y}_2} \frac{\partial \hat{y}_2}{\partial h_2} \frac{\partial h_2}{\partial W_{xh}} + \frac{\partial L_2}{\partial \hat{y}_2} \frac{\partial \hat{y}_2}{\partial h_2} \frac{\partial h_2}{\partial h_1} \frac{\partial h_1}{\partial W_{xh}}
+$$</p>
+<p>Let's keep this going for $L_3$, which will have terms for $h_3$, $h_2$, and $h_1$.</p>
+<p>$$
+\frac{\partial L_3}{\partial W_{xh}} = \frac{\partial L_3}{\partial \hat{y}_3} \frac{\partial \hat{y}_3}{\partial h_3} \frac{\partial h_3}{\partial W_{xh}} + \frac{\partial L_3}{\partial \hat{y}_3} \frac{\partial \hat{y}_3}{\partial h_3} \frac{\partial h_3}{\partial h_2} \frac{\partial h_2}{\partial W_{xh}} + \frac{\partial L_3}{\partial \hat{y}_3} \frac{\partial \hat{y}_3}{\partial h_3} \frac{\partial h_3}{\partial h_2} \frac{\partial h_2}{\partial h_1} \frac{\partial h_1}{\partial W_{xh}}
+$$</p>
+<p>Finally, let's write out the derivative of $L_4$ with respect to $W_{xh}$. This will have terms for $h_4$, $h_3$, $h_2$, and $h_1$.</p>
+<p>$$
+\frac{\partial L_4}{\partial W_{xh}} = \frac{\partial L_4}{\partial \hat{y}_4} \frac{\partial \hat{y}_4}{\partial h_4} \frac{\partial h_4}{\partial W_{xh}} + \frac{\partial L_4}{\partial \hat{y}_4} \frac{\partial \hat{y}_4}{\partial h_4} \frac{\partial h_4}{\partial h_3} \frac{\partial h_3}{\partial W_{xh}} + \frac{\partial L_4}{\partial \hat{y}_4} \frac{\partial \hat{y}_4}{\partial h_4} \frac{\partial h_4}{\partial h_3} \frac{\partial h_3}{\partial h_2} \frac{\partial h_2}{\partial W_{xh}} + \frac{\partial L_4}{\partial \hat{y}_4} \frac{\partial \hat{y}_4}{\partial h_4} \frac{\partial h_4}{\partial h_3} \frac{\partial h_3}{\partial h_2} \frac{\partial h_2}{\partial h_1} \frac{\partial h_1}{\partial W_{xh}}
+$$</p>
+<p>Simplifying this into a summation, we get the following.</p>
+<p>$$
+\frac{\partial L}{\partial W_{xh}} = \sum_{t=1}^4 \sum_{k=1}^4\frac{\partial L_t}{\partial \hat{y}_t} \frac{\partial \hat{y}_t}{\partial h_t} \frac{\partial h_t}{\partial h_k} \frac{\partial h_k}{\partial W_{xh}}
+$$</p>
+<p>Expressed generically for a series of $T$ time steps, we get the following.</p>
+<p>$$
+\frac{\partial L}{\partial W_{xh}} = \sum_{t=1}^T \sum_{k=1}^T\frac{\partial L_t}{\partial \hat{y}_t} \frac{\partial \hat{y}_t}{\partial h_t} \frac{\partial h_t}{\partial h_k} \frac{\partial h_k}{\partial W_{xh}}
 $$</p>
 </div>
 </div>
@@ -7578,7 +7647,7 @@ $$</p>
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
 <pre>[NbConvertApp] Converting notebook pt5_derivatives.ipynb to html
-[NbConvertApp] Writing 270887 bytes to pt5_derivatives.html
+[NbConvertApp] Writing 273444 bytes to pt5_derivatives.html
 </pre>
 </div>
 </div>
