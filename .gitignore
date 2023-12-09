@@ -1,3 +1,5 @@
 *.tfrecord.*
 .DS_Store
 *.h5
+.env
+*.keras
